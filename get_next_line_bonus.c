@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcheron <jcheron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:40:28 by jcheron           #+#    #+#             */
-/*   Updated: 2024/10/27 14:42:53 by jcheron          ###   ########.fr       */
+/*   Updated: 2024/10/27 14:38:55 by jcheron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*_ft_strchr(char *s, int c)
 {
@@ -72,7 +72,7 @@ static char	*_set_line(char *line_buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*old;
+	static char	*old[FD_MAX];
 	char		*line;
 	char		*buffer;
 
@@ -80,18 +80,18 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
 		free(buffer);
-		free(old);
+		free(old[fd]);
 		buffer = NULL;
-		old = NULL;
+		old[fd] = NULL;
 		return (NULL);
 	}
 	if (!buffer)
 		return (NULL);
-	line = _fill_line(fd, old, buffer);
+	line = _fill_line(fd, old[fd], buffer);
 	free (buffer);
 	buffer = NULL;
 	if (!line)
 		return (NULL);
-	old = _set_line(line);
+	old[fd] = _set_line(line);
 	return (line);
 }
