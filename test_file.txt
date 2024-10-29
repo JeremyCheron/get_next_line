@@ -1,0 +1,6 @@
+fichier contenant plusieurs lignes
+la deuxieme lignes
+puis la troisieme
+
+
+et enfin la dernier apres en avoir saute deux
