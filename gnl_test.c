@@ -7,6 +7,8 @@ int main(void)
     int fd;
     char *line;
 
+	printf("BUFFER_SIZE = %d\n", BUFFER_SIZE);
+
     // Test avec un fichier contenant plusieurs lignes de texte
     fd = open("test_file.txt", O_RDONLY);
     if (fd == -1)
